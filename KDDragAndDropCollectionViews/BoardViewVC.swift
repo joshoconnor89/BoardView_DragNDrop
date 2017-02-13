@@ -14,7 +14,7 @@ class BoardViewVC: UIViewController {
     @IBOutlet weak var boardViewCollectionView: UICollectionView!
     
     var firstListData = ["Red", "Blue", "Green", "Brown", "Black", "Purple", "Orange", "Gray", "White", "Yellow", "Teal", "Magenta"]
-    var secondListData = ["Korean War", "WWI", "WWII", "Mexican Revolution", "Brooks-Baxter War", "Greek Punic Wars", "First Crusade", "Russian Revolution", "Korean War", "Vietnam War", "Gulf War"]
+    var secondListData = ["Korean War", "WWI", "WWII", "Mexican Revolution", "Brooks-Baxter War", "Greek Punic Wars", "First Crusade", "Russian Revolution", "Vietnam War", "Gulf War"]
     var thirdListData = ["Captain Crunch", "Reeses Puff", "Fruit Loops", "Fruity Pebbles", "Cocoa Puffs", "Raisin Bran", "Honey Nut Cheerios", "Apple Jacks", "Cinnamon Toast Crunch"]
     var fourthListData = ["Oakland Raiders", "New England Patriots", "Carolina Panthers", "Green Bay Packers", "San Francisco 49ers", "San Diego Chargers", "Denver Broncos", "Detroit Lions", "Seattle Seahawks", "Minnesota Vikings", "Atlanta Falcons"]
     var fifthListData = ["United States of America", "Canada", "Mexico", "England", "Germany", "Japan", "Korea", "China", "India", "Russia", "Israel", "Colombia", "Norway", "Poland", "Spain"]
@@ -127,6 +127,8 @@ extension BoardViewVC: UICollectionViewDataSource {
                 cell.listCollectionView.delegate = self
                 cell.listCollectionView.dataSource = self
                 cell.tag = indexPath.row
+                cell.listCollectionView.reloadData()
+                
                 
                 return cell
             }
@@ -193,15 +195,6 @@ extension BoardViewVC: UICollectionViewDataSource {
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if (collectionView == boardViewCollectionView){
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCell{
-                setUpDragAndDropManager()
-                cell.listCollectionView.reloadData()
-                
-            }
-        }
-    }
 }
 
 
