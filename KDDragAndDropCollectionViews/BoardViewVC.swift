@@ -241,21 +241,238 @@ extension BoardViewVC: KDDragAndDropCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem : AnyObject, atIndexPath indexPath: IndexPath) -> Void {
         print("insertDataItem")
         
+        let tag = collectionView.tag
         
+        switch tag {
+        case 0:
+            firstListData.insert(dataItem as! String, at: indexPath.row)
+        case 1:
+            secondListData.insert(dataItem as! String, at: indexPath.row)
+        case 2:
+            thirdListData.insert(dataItem as! String, at: indexPath.row)
+        case 3:
+            fourthListData.insert(dataItem as! String, at: indexPath.row)
+        case 4:
+            fifthListData.insert(dataItem as! String, at: indexPath.row)
+        case 5:
+            sixthListData.insert(dataItem as! String, at: indexPath.row)
+        case 6:
+            seventhListData.insert(dataItem as! String, at: indexPath.row)
+        case 7:
+            eighthListData.insert(dataItem as! String, at: indexPath.row)
+        case 8:
+            ninthListData.insert(dataItem as! String, at: indexPath.row)
+        case 9:
+            tenthListData.insert(dataItem as! String, at: indexPath.row)
+        default:
+            break
+        }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath : IndexPath) -> Void {
        print("deleteDataItemAtIndexPath")
+
+        let tag = collectionView.tag
+        
+        switch tag {
+        case 0:
+            firstListData.remove(at: indexPath.row)
+        case 1:
+            secondListData.remove(at: indexPath.row)
+        case 2:
+            thirdListData.remove(at: indexPath.row)
+        case 3:
+            fourthListData.remove(at: indexPath.row)
+        case 4:
+            fifthListData.remove(at: indexPath.row)
+        case 5:
+            sixthListData.remove(at: indexPath.row)
+        case 6:
+            seventhListData.remove(at: indexPath.row)
+        case 7:
+            eighthListData.remove(at: indexPath.row)
+        case 8:
+            ninthListData.remove(at: indexPath.row)
+        case 9:
+            tenthListData.remove(at: indexPath.row)
+        default:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to : IndexPath) -> Void {
         print("moveDataItemFromIndexPath")
+        
+
+        
+        let tag = collectionView.tag
+        
+        switch tag {
+        case 0:
+            let fromDataItem = firstListData[from.item]
+            firstListData.remove(at: from.item)
+            firstListData.insert(fromDataItem, at: to.item)
+        case 1:
+            let fromDataItem = secondListData[from.item]
+            secondListData.remove(at: from.item)
+            secondListData.insert(fromDataItem, at: to.item)
+        case 2:
+            let fromDataItem = thirdListData[from.item]
+            thirdListData.remove(at: from.item)
+            thirdListData.insert(fromDataItem, at: to.item)
+        case 3:
+            let fromDataItem = fourthListData[from.item]
+            fourthListData.remove(at: from.item)
+            fourthListData.insert(fromDataItem, at: to.item)
+        case 4:
+            let fromDataItem = fifthListData[from.item]
+            fifthListData.remove(at: from.item)
+            fifthListData.insert(fromDataItem, at: to.item)
+        case 5:
+            let fromDataItem = sixthListData[from.item]
+            secondListData.remove(at: from.item)
+            sixthListData.insert(fromDataItem, at: to.item)
+        case 6:
+            let fromDataItem = seventhListData[from.item]
+            seventhListData.remove(at: from.item)
+            seventhListData.insert(fromDataItem, at: to.item)
+        case 7:
+            let fromDataItem = eighthListData[from.item]
+            eighthListData.remove(at: from.item)
+            eighthListData.insert(fromDataItem, at: to.item)
+        case 8:
+            let fromDataItem = ninthListData[from.item]
+            ninthListData.remove(at: from.item)
+            ninthListData.insert(fromDataItem, at: to.item)
+        case 9:
+            let fromDataItem = tenthListData[from.item]
+            tenthListData.remove(at: from.item)
+            tenthListData.insert(fromDataItem, at: to.item)
+        default:
+            break
+        }
+
     }
     
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
         print("indexPathForDataItem")
-        return IndexPath(row: 0, section: 0)
+
+        if let candidate = dataItem as? String {
+
+            let tag = collectionView.tag
+            
+            switch tag {
+            case 0:
+                for item in firstListData {
+                    if candidate  == item {
+                        
+                        let position = firstListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+
+            case 1:
+                for item in secondListData {
+                    if candidate  == item {
+                        
+                        let position = secondListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+                
+            case 2:
+                for item in thirdListData {
+                    if candidate  == item {
+                        
+                        let position = thirdListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+               
+            case 3:
+                for item in fourthListData {
+                    if candidate  == item {
+                        
+                        let position = fourthListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+                
+            case 4:
+                for item in fifthListData {
+                    if candidate  == item {
+                        
+                        let position = fifthListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+                
+            case 5:
+                for item in sixthListData {
+                    if candidate  == item {
+                        
+                        let position = sixthListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+              
+            case 6:
+                for item in seventhListData {
+                    if candidate  == item {
+                        
+                        let position = seventhListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+               
+            case 7:
+                for item in eighthListData {
+                    if candidate  == item {
+                        
+                        let position = eighthListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+               
+            case 8:
+                for item in ninthListData {
+                    if candidate  == item {
+                        
+                        let position = ninthListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+               
+            case 9:
+                for item in tenthListData {
+                    if candidate  == item {
+                        
+                        let position = tenthListData.index(of: item)! // ! if we are inside the condition we are guaranteed a position
+                        let indexPath = IndexPath(item: position, section: 0)
+                        return indexPath
+                    }
+                }
+             
+            default:
+                break
+            }
+
+            
+        }
+        
+        return nil
+        
+
     }
 
 }
