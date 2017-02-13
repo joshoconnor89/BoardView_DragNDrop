@@ -1,5 +1,5 @@
 //
-//  ListCell.swift
+//  BoardViewCell.swift
 //  KDDragAndDropCollectionViews
 //
 //  Created by Joshua O'Connor on 2/13/17.
@@ -9,7 +9,10 @@
 import Foundation
 import UIKit
 
-class ListCell: UICollectionViewCell {
+class BoardViewCell: UICollectionViewCell {
     
- 
+    
+    
+    
+    
 }
