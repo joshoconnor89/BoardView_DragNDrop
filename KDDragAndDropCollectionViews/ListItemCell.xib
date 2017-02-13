@@ -17,9 +17,25 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="351" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mr1-fC-pzr">
+                        <rect key="frame" x="8" y="15" width="335" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
             </view>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="mr1-fC-pzr" firstAttribute="leading" secondItem="DHe-oi-7UO" secondAttribute="leading" constant="8" id="8kx-yh-yFW"/>
+                <constraint firstAttribute="trailing" secondItem="mr1-fC-pzr" secondAttribute="trailing" constant="8" id="CC9-Kr-uO8"/>
+                <constraint firstItem="mr1-fC-pzr" firstAttribute="centerY" secondItem="DHe-oi-7UO" secondAttribute="centerY" id="wi0-Lo-9DD"/>
+            </constraints>
             <size key="customSize" width="351" height="50"/>
+            <connections>
+                <outlet property="listItemLabel" destination="mr1-fC-pzr" id="oHv-2Q-qDB"/>
+            </connections>
             <point key="canvasLocation" x="97.5" y="-23"/>
         </collectionViewCell>
     </objects>

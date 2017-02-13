@@ -11,4 +11,5 @@ import UIKit
 
 class ListItemCell: UICollectionViewCell {
 
+    @IBOutlet weak var listItemLabel: UILabel!
 }
