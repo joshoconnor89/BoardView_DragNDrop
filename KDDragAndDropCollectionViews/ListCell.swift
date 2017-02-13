@@ -15,7 +15,7 @@ class ListCell: UICollectionViewCell {
  
     override func layoutSubviews() {
         super.layoutSubviews()
-        let scrollSize = CGSize(width: self.frame.width, height: self.frame.height)
+        let scrollSize = CGSize(width: self.frame.width, height: self.listCollectionView.contentSize.height)
 
         listCollectionView.contentSize = scrollSize
     }
