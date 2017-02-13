@@ -17,6 +17,8 @@
 		BE3603D91AD82D4F005EE44C /* KDDragAndDropCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3603D81AD82D4F005EE44C /* KDDragAndDropCollectionView.swift */; };
 		BE3603DB1ADBE397005EE44C /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3603DA1ADBE397005EE44C /* ColorCell.swift */; };
 		C66452151E52307D0014C33D /* BoardViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66452141E52307D0014C33D /* BoardViewVC.swift */; };
+		C66452191E5238200014C33D /* ListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66452181E5238200014C33D /* ListItemCell.swift */; };
+		C664521B1E5238290014C33D /* ListItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C664521A1E5238290014C33D /* ListItemCell.xib */; };
 		C6DD98021E522D3600AC860C /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DD98011E522D3600AC860C /* ListCell.swift */; };
 		C6DD98041E522D3C00AC860C /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6DD98031E522D3C00AC860C /* ListCell.xib */; };
 /* End PBXBuildFile section */
@@ -46,6 +48,8 @@
 		BE3603D81AD82D4F005EE44C /* KDDragAndDropCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDDragAndDropCollectionView.swift; sourceTree = "<group>"; };
 		BE3603DA1ADBE397005EE44C /* ColorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		C66452141E52307D0014C33D /* BoardViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardViewVC.swift; sourceTree = "<group>"; };
+		C66452181E5238200014C33D /* ListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemCell.swift; sourceTree = "<group>"; };
+		C664521A1E5238290014C33D /* ListItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListItemCell.xib; sourceTree = "<group>"; };
 		C6DD98011E522D3600AC860C /* ListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		C6DD98031E522D3C00AC860C /* ListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,6 +154,8 @@
 				C66452141E52307D0014C33D /* BoardViewVC.swift */,
 				C6DD98011E522D3600AC860C /* ListCell.swift */,
 				C6DD98031E522D3C00AC860C /* ListCell.xib */,
+				C66452181E5238200014C33D /* ListItemCell.swift */,
+				C664521A1E5238290014C33D /* ListItemCell.xib */,
 			);
 			name = ProtoTypeProject;
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3603BB1AD7DE06005EE44C /* Main.storyboard in Resources */,
+				C664521B1E5238290014C33D /* ListItemCell.xib in Resources */,
 				C6DD98041E522D3C00AC860C /* ListCell.xib in Resources */,
 				BE3603C01AD7DE06005EE44C /* LaunchScreen.xib in Resources */,
 				BE3603BD1AD7DE06005EE44C /* Images.xcassets in Resources */,
@@ -260,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C66452191E5238200014C33D /* ListItemCell.swift in Sources */,
 				BE3603D91AD82D4F005EE44C /* KDDragAndDropCollectionView.swift in Sources */,
 				BE3603D71AD7DE26005EE44C /* KDDragAndDropManager.swift in Sources */,
 				BE3603B81AD7DE06005EE44C /* ViewController.swift in Sources */,

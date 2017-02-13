@@ -35,7 +35,13 @@ extension BoardViewVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 50, height: UIScreen.main.bounds.height - 33 /*top padding*/- 64 /*Nav bar*/)
+        
+        if collectionView == boardViewCollectionView {
+            return CGSize(width: UIScreen.main.bounds.width - 50, height: UIScreen.main.bounds.height - 33 /*top padding*/- 64 /*Nav bar*/)
+        }else{
+            return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
+        }
+        
     }
     
     
@@ -45,16 +51,29 @@ extension BoardViewVC: UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCell{
-
-            
-            return cell
+        
+        if collectionView == boardViewCollectionView {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCell{
+                let cellNib = UINib(nibName: String(describing: ListItemCell.self), bundle: nil)
+                cell.listCollectionView.register(cellNib, forCellWithReuseIdentifier: "listItemCell")
+                
+                cell.listCollectionView.delegate = self
+                cell.listCollectionView.dataSource = self
+                
+                return cell
+            }
+        }else{
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listItemCell", for: indexPath) as? ListItemCell{
+                
+                return cell
+            }
         }
+       
         return UICollectionViewCell()
         
     }
