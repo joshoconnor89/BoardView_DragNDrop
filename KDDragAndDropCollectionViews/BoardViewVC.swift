@@ -24,6 +24,12 @@ class BoardViewVC: UIViewController {
     var ninthListData = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
     var tenthListData = ["Helium", "Argon", "Krypton", "Iron", "Gold", "Mercury", "Uranium", "Lead", "Bromine", "Iodine", "Lithium", "Magnesium", "Hydrogen", "Carbon", "Calcium", "Nickel", "Cobalt", "Phosphorus", "Sulfur", "Oxygen", "Nitrogen", "Sodium"]
     
+    
+    var dragAndDropManager : KDDragAndDropManager?
+    
+    var collectionViews = Set<KDDragAndDropCollectionView>()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +43,18 @@ class BoardViewVC: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         
         
+        
+    }
+    
+    func setUpDragAndDropManager() {
+        
+        let collectionViewArray = Array(collectionViews)
+
+        if (self.dragAndDropManager != nil){
+            self.dragAndDropManager = nil
+        }
+        self.dragAndDropManager = KDDragAndDropManager(canvas: self.boardViewCollectionView, collectionViews: collectionViewArray)
+
         
     }
 }
@@ -113,6 +131,9 @@ extension BoardViewVC: UICollectionViewDataSource {
                 return cell
             }
         }else{
+            
+            collectionViews.insert(collectionView as! KDDragAndDropCollectionView)
+            
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listItemCell", for: indexPath) as? ListItemCell{
                 
                 if let parentCV = collectionView.superview?.superview as? ListCell {
@@ -147,6 +168,20 @@ extension BoardViewVC: UICollectionViewDataSource {
                     cell.listItemLabel.text = string
                     
                     
+                    cell.isHidden = false
+                    
+                    if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {
+                        
+                        if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
+                            
+                            if draggingPathOfCellBeingDragged.item == indexPath.item {
+                                
+                                cell.isHidden = true
+                                
+                            }
+                        }
+                    }
+                    
                 }
                 
                 
@@ -161,10 +196,66 @@ extension BoardViewVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if (collectionView == boardViewCollectionView){
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell", for: indexPath) as? ListCell{
-
+                setUpDragAndDropManager()
                 cell.listCollectionView.reloadData()
                 
             }
         }
     }
+}
+
+
+extension BoardViewVC: KDDragAndDropCollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
+        print("dataItemForIndexPath")
+        
+        let tag = collectionView.tag
+        var string = ""
+        switch tag {
+        case 0:
+            string = firstListData[indexPath.row]
+        case 1:
+            string = secondListData[indexPath.row]
+        case 2:
+            string = thirdListData[indexPath.row]
+        case 3:
+            string = fourthListData[indexPath.row]
+        case 4:
+            string = fifthListData[indexPath.row]
+        case 5:
+            string = sixthListData[indexPath.row]
+        case 6:
+            string = seventhListData[indexPath.row]
+        case 7:
+            string = eighthListData[indexPath.row]
+        case 8:
+            string = ninthListData[indexPath.row]
+        case 9:
+            string = tenthListData[indexPath.row]
+        default:
+            break
+        }
+
+        return string as AnyObject
+    }
+    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem : AnyObject, atIndexPath indexPath: IndexPath) -> Void {
+        print("insertDataItem")
+        
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath : IndexPath) -> Void {
+       print("deleteDataItemAtIndexPath")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to : IndexPath) -> Void {
+        print("moveDataItemFromIndexPath")
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
+        print("indexPathForDataItem")
+        return IndexPath(row: 0, section: 0)
+    }
+
 }

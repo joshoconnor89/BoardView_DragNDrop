@@ -11,8 +11,10 @@ import UIKit
 
 class ListCell: UICollectionViewCell {
     
-    @IBOutlet weak var listCollectionView: UICollectionView!
- 
+
+    @IBOutlet weak var listCollectionView: KDDragAndDropCollectionView!
+
+
     override func layoutSubviews() {
         super.layoutSubviews()
         let scrollSize = CGSize(width: self.frame.width, height: self.listCollectionView.contentSize.height)

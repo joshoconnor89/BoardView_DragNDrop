@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d3p-GJ-lab">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d3p-GJ-lab" customClass="KDDragAndDropCollectionView" customModule="KDDragAndDropCollectionViews" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
                         <color key="backgroundColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="10" id="xfe-Df-jxL">
@@ -38,7 +38,7 @@
             </constraints>
             <size key="customSize" width="365" height="503"/>
             <connections>
-                <outlet property="listCollectionView" destination="d3p-GJ-lab" id="Azh-xs-9nZ"/>
+                <outlet property="listCollectionView" destination="d3p-GJ-lab" id="Cwz-k2-dzU"/>
             </connections>
             <point key="canvasLocation" x="-24.5" y="29.5"/>
         </collectionViewCell>
