@@ -97,6 +97,8 @@ class ViewController: UIViewController, KDDragAndDropCollectionViewDataSource {
         return cell
     }
 
+    
+    
     // MARK : KDDragAndDropCollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
@@ -110,6 +112,8 @@ class ViewController: UIViewController, KDDragAndDropCollectionViewDataSource {
         
         
     }
+    
+
     func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath : IndexPath) -> Void {
         data[collectionView.tag].remove(at: indexPath.item)
     }

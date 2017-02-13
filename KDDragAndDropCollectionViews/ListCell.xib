@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="h5c-QI-nMv" customClass="ListCell" customModule="KDDragAndDropCollectionViews" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d3p-GJ-lab" customClass="KDDragAndDropCollectionView" customModule="KDDragAndDropCollectionViews" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
+                        <color key="backgroundColor" red="0.45098039220000002" green="0.45098039220000002" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="10" id="xfe-Df-jxL">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="d3p-GJ-lab" secondAttribute="trailing" id="RFO-3E-aMn"/>
+                <constraint firstItem="d3p-GJ-lab" firstAttribute="top" secondItem="h5c-QI-nMv" secondAttribute="top" id="WTX-xr-yCR"/>
+                <constraint firstAttribute="bottom" secondItem="d3p-GJ-lab" secondAttribute="bottom" id="Wk2-pC-VRZ"/>
+                <constraint firstItem="d3p-GJ-lab" firstAttribute="leading" secondItem="h5c-QI-nMv" secondAttribute="leading" id="ica-fx-aBf"/>
+            </constraints>
+            <size key="customSize" width="365" height="503"/>
+            <connections>
+                <outlet property="listCollectionView" destination="d3p-GJ-lab" id="Cwz-k2-dzU"/>
+            </connections>
+            <point key="canvasLocation" x="-24.5" y="29.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
