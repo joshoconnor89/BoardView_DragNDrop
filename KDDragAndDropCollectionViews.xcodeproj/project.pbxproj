@@ -16,6 +16,8 @@
 		BE3603D71AD7DE26005EE44C /* KDDragAndDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3603D61AD7DE26005EE44C /* KDDragAndDropManager.swift */; };
 		BE3603D91AD82D4F005EE44C /* KDDragAndDropCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3603D81AD82D4F005EE44C /* KDDragAndDropCollectionView.swift */; };
 		BE3603DB1ADBE397005EE44C /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3603DA1ADBE397005EE44C /* ColorCell.swift */; };
+		C6DD98021E522D3600AC860C /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DD98011E522D3600AC860C /* ListCell.swift */; };
+		C6DD98041E522D3C00AC860C /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6DD98031E522D3C00AC860C /* ListCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		BE3603D61AD7DE26005EE44C /* KDDragAndDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDDragAndDropManager.swift; sourceTree = "<group>"; };
 		BE3603D81AD82D4F005EE44C /* KDDragAndDropCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KDDragAndDropCollectionView.swift; sourceTree = "<group>"; };
 		BE3603DA1ADBE397005EE44C /* ColorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		C6DD98011E522D3600AC860C /* ListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
+		C6DD98031E522D3C00AC860C /* ListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 				BE3603B51AD7DE06005EE44C /* AppDelegate.swift */,
 				BE3603B71AD7DE06005EE44C /* ViewController.swift */,
 				BE3603DA1ADBE397005EE44C /* ColorCell.swift */,
+				C6DD98011E522D3600AC860C /* ListCell.swift */,
+				C6DD98031E522D3C00AC860C /* ListCell.xib */,
 				BE3603B91AD7DE06005EE44C /* Main.storyboard */,
 				BE3603BC1AD7DE06005EE44C /* Images.xcassets */,
 				BE3603BE1AD7DE06005EE44C /* LaunchScreen.xib */,
@@ -215,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3603BB1AD7DE06005EE44C /* Main.storyboard in Resources */,
+				C6DD98041E522D3C00AC860C /* ListCell.xib in Resources */,
 				BE3603C01AD7DE06005EE44C /* LaunchScreen.xib in Resources */,
 				BE3603BD1AD7DE06005EE44C /* Images.xcassets in Resources */,
 			);
@@ -237,6 +244,7 @@
 				BE3603D91AD82D4F005EE44C /* KDDragAndDropCollectionView.swift in Sources */,
 				BE3603D71AD7DE26005EE44C /* KDDragAndDropManager.swift in Sources */,
 				BE3603B81AD7DE06005EE44C /* ViewController.swift in Sources */,
+				C6DD98021E522D3600AC860C /* ListCell.swift in Sources */,
 				BE3603DB1ADBE397005EE44C /* ColorCell.swift in Sources */,
 				BE3603B61AD7DE06005EE44C /* AppDelegate.swift in Sources */,
 			);
