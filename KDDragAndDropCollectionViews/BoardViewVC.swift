@@ -46,6 +46,10 @@ class BoardViewVC: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setUpDragAndDropManager()
+    }
+    
     func setUpDragAndDropManager() {
         
         let collectionViewArray = Array(collectionViews)
