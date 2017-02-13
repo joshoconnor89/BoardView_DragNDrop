@@ -18,19 +18,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8W-wn-vqx">
-                        <rect key="frame" x="8" y="8" width="349" height="487"/>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d3p-GJ-lab">
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="503"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xfe-Df-jxL">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="r8W-wn-vqx" firstAttribute="top" secondItem="h5c-QI-nMv" secondAttribute="top" constant="8" id="K9r-Cv-akM"/>
-                <constraint firstItem="r8W-wn-vqx" firstAttribute="leading" secondItem="h5c-QI-nMv" secondAttribute="leading" constant="8" id="KlH-e2-J8w"/>
-                <constraint firstAttribute="trailing" secondItem="r8W-wn-vqx" secondAttribute="trailing" constant="8" id="Y4i-3k-bhh"/>
-                <constraint firstAttribute="bottom" secondItem="r8W-wn-vqx" secondAttribute="bottom" constant="8" id="ncw-QS-g1i"/>
+                <constraint firstAttribute="trailing" secondItem="d3p-GJ-lab" secondAttribute="trailing" id="RFO-3E-aMn"/>
+                <constraint firstItem="d3p-GJ-lab" firstAttribute="top" secondItem="h5c-QI-nMv" secondAttribute="top" id="WTX-xr-yCR"/>
+                <constraint firstAttribute="bottom" secondItem="d3p-GJ-lab" secondAttribute="bottom" id="Wk2-pC-VRZ"/>
+                <constraint firstItem="d3p-GJ-lab" firstAttribute="leading" secondItem="h5c-QI-nMv" secondAttribute="leading" id="ica-fx-aBf"/>
             </constraints>
             <size key="customSize" width="365" height="503"/>
+            <connections>
+                <outlet property="listCollectionView" destination="d3p-GJ-lab" id="Azh-xs-9nZ"/>
+            </connections>
             <point key="canvasLocation" x="-24.5" y="29.5"/>
         </collectionViewCell>
     </objects>
