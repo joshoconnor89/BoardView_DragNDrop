@@ -191,7 +191,7 @@
         <!--Prototype Project-->
         <scene sceneID="bZ5-Su-gcV">
             <objects>
-                <viewController id="eDM-yb-m5w" sceneMemberID="viewController">
+                <viewController id="eDM-yb-m5w" customClass="BoardViewVC" customModule="KDDragAndDropCollectionViews" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Bax-C1-99x"/>
                         <viewControllerLayoutGuide type="bottom" id="bTH-3u-ej3"/>
@@ -199,13 +199,32 @@
                     <view key="view" contentMode="scaleToFill" id="a3Q-yX-McU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="DpL-4n-jZT">
+                                <rect key="frame" x="0.0" y="97" width="375" height="570"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="k6J-If-LOe">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DpL-4n-jZT" secondAttribute="trailing" id="Ab6-sU-mRD"/>
+                            <constraint firstItem="DpL-4n-jZT" firstAttribute="leading" secondItem="a3Q-yX-McU" secondAttribute="leading" id="Dgf-Zh-CjL"/>
+                            <constraint firstItem="DpL-4n-jZT" firstAttribute="top" secondItem="Bax-C1-99x" secondAttribute="bottom" constant="33" id="esb-7e-8IW"/>
+                            <constraint firstItem="bTH-3u-ej3" firstAttribute="top" secondItem="DpL-4n-jZT" secondAttribute="bottom" id="hnq-vQ-hOS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Prototype Project" id="VVM-HE-bc8"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="omc-Rw-sRc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3385" y="840"/>
+            <point key="canvasLocation" x="3384.8000000000002" y="839.73013493253382"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Xbw-bi-iic">
