@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6dM-ql-Nfg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="TKF-pi-WzX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -40,7 +40,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="0Gd-Ct-NcX" customClass="ColorCell" customModule="KDDragAndDropCollectionViews" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1" width="69" height="127"/>
+                                        <rect key="frame" x="0.0" y="31" width="69" height="127"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="69" height="127"/>
@@ -186,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3385" y="110"/>
+            <point key="canvasLocation" x="2460" y="-670"/>
         </scene>
         <!--Prototype Project-->
         <scene sceneID="bZ5-Su-gcV">
@@ -227,74 +227,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="omc-Rw-sRc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3384.8000000000002" y="839.73013493253382"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Xbw-bi-iic">
-            <objects>
-                <viewController id="ie7-8y-N7A" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="E8L-6A-WBS"/>
-                        <viewControllerLayoutGuide type="bottom" id="vB6-uY-Oeu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jQS-Cy-J5P">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YL0-Ic-aId">
-                                <rect key="frame" x="83" y="247" width="209" height="60"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="209" id="FJJ-Zh-1ls"/>
-                                    <constraint firstAttribute="height" constant="60" id="JpI-WQ-ZsR"/>
-                                </constraints>
-                                <state key="normal" title="ProtoType Project"/>
-                                <connections>
-                                    <segue destination="eDM-yb-m5w" kind="push" id="wqy-O7-tBH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad7-bX-EkE">
-                                <rect key="frame" x="82.5" y="362" width="209" height="60"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Sample Project"/>
-                                <connections>
-                                    <segue destination="vXZ-lx-hvc" kind="push" id="9gg-XH-QZe"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="YL0-Ic-aId" firstAttribute="top" secondItem="E8L-6A-WBS" secondAttribute="bottom" constant="183" id="5QC-7g-bOQ"/>
-                            <constraint firstItem="ad7-bX-EkE" firstAttribute="centerX" secondItem="YL0-Ic-aId" secondAttribute="centerX" id="KrZ-3C-D9l"/>
-                            <constraint firstItem="ad7-bX-EkE" firstAttribute="top" secondItem="YL0-Ic-aId" secondAttribute="bottom" constant="55" id="O0I-1t-2fP"/>
-                            <constraint firstItem="ad7-bX-EkE" firstAttribute="width" secondItem="YL0-Ic-aId" secondAttribute="width" id="YdJ-wc-hKw"/>
-                            <constraint firstItem="ad7-bX-EkE" firstAttribute="height" secondItem="YL0-Ic-aId" secondAttribute="height" id="oAA-f2-zvm"/>
-                            <constraint firstItem="YL0-Ic-aId" firstAttribute="centerX" secondItem="jQS-Cy-J5P" secondAttribute="centerX" id="sfv-s5-DDT"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="1AB-TO-aCt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QD5-om-675" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2352.8000000000002" y="447.52623688155927"/>
+            <point key="canvasLocation" x="4240.8000000000002" y="447.52623688155927"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="vnT-5l-u3X">
+        <scene sceneID="nK5-8e-A25">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6dM-ql-Nfg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TKF-pi-WzX" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N1b-KH-SpS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1if-qW-K0U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ie7-8y-N7A" kind="relationship" relationship="rootViewController" id="Cki-Z1-MPs"/>
+                        <segue destination="eDM-yb-m5w" kind="relationship" relationship="rootViewController" id="bmm-4f-Rdc"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jsp-lF-gsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2db-Qo-eVl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1413.5999999999999" y="447.52623688155927"/>
+            <point key="canvasLocation" x="3301.5999999999999" y="447.52623688155927"/>
         </scene>
     </scenes>
 </document>
