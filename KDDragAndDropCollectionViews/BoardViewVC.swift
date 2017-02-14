@@ -78,7 +78,10 @@ class BoardViewVC: UIViewController {
                         
                         cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
                         self.cellSnapshot = snapshotOfCell(cell)
-                        var center = cell.center
+                        
+                        let centerPoint = CGPoint(x: cellCenterX, y: locationInCellTableView.y)
+                        
+                        var center = centerPoint
                         self.cellSnapshot!.center = center
                         self.cellSnapshot!.alpha = 0.0
                         boardViewCollectionView.addSubview(self.cellSnapshot!)
