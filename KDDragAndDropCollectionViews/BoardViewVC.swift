@@ -78,11 +78,7 @@ class BoardViewVC: UIViewController {
                         switch state {
                         case UIGestureRecognizerState.began:
                             //print("began")
-                            
-                            
-                            
-                            
-                            
+
                             Path.initialIndexPath = childIndexPath
 
                             cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
@@ -114,6 +110,8 @@ class BoardViewVC: UIViewController {
                             
                         case UIGestureRecognizerState.changed:
                             //print("changed")
+                            cell.alpha = 0.0
+                            
                             if self.cellSnapshot != nil {
                                 var center = self.cellSnapshot!.center
                                 center.y = locationInView.y
@@ -161,6 +159,7 @@ class BoardViewVC: UIViewController {
                             print("ended")
                             self.cellSnapshot!.removeFromSuperview()
                             self.cellSnapshot = nil
+                            cell.alpha = 1.0
                         }
                     }
                     
