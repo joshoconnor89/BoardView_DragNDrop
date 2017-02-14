@@ -220,7 +220,13 @@
                             <constraint firstItem="bTH-3u-ej3" firstAttribute="top" secondItem="DpL-4n-jZT" secondAttribute="bottom" id="hnq-vQ-hOS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Prototype Project" id="VVM-HE-bc8"/>
+                    <navigationItem key="navigationItem" title="Prototype Project" id="VVM-HE-bc8">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="Bi6-3S-F5i">
+                            <connections>
+                                <action selector="resetCV:" destination="eDM-yb-m5w" id="L0B-nO-rVF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="boardViewCollectionView" destination="DpL-4n-jZT" id="osc-Iq-3Ia"/>
                     </connections>

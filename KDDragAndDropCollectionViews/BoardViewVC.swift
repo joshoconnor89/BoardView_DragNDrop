@@ -15,16 +15,16 @@ class BoardViewVC: UIViewController {
     fileprivate var cellSnapshot: UIView?
     fileprivate var indexToCollapse: IndexPath?
     
-    var firstListData = ["Red", "Blue", "Green", "Brown", "Black", "Purple", "Orange", "Gray", "White", "Yellow", "Teal", "Magenta"]
-    var secondListData = ["Korean War", "WWI", "WWII", "Mexican Revolution", "Brooks-Baxter War", "Greek Punic Wars", "First Crusade", "Russian Revolution", "Vietnam War", "Gulf War"]
-    var thirdListData = ["Captain Crunch", "Reeses Puff", "Fruit Loops", "Fruity Pebbles", "Cocoa Puffs", "Raisin Bran", "Honey Nut Cheerios", "Apple Jacks", "Cinnamon Toast Crunch"]
-    var fourthListData = ["Oakland Raiders", "New England Patriots", "Carolina Panthers", "Green Bay Packers", "San Francisco 49ers", "San Diego Chargers", "Denver Broncos", "Detroit Lions", "Seattle Seahawks", "Minnesota Vikings", "Atlanta Falcons"]
-    var fifthListData = ["United States of America", "Canada", "Mexico", "England", "Germany", "Japan", "Korea", "China", "India", "Russia", "Israel", "Colombia", "Norway", "Poland", "Spain"]
-    var sixthListData = ["Cat", "Dog", "Owl", "Manatee", "Gorilla", "Snake", "Goat", "Cow", "Chicken", "Pig", "Ostrich", "Alligator", "Elephant", "Bear", "Salmon", "Platypus", "Chameleon"]
-    var seventhListData = ["Soronan Desert", "Kalahari Desert", "Gobi Desert", "Mojave Desert", "Great Basin Desert", "Thar Desert", "Great Sandy Desert", "Gibson Desert", "Namib Desert"]
-    var eighthListData = ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Southern Ocean", "Artic Ocean"]
-    var ninthListData = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
-    var tenthListData = ["Helium", "Argon", "Krypton", "Iron", "Gold", "Mercury", "Uranium", "Lead", "Bromine", "Iodine", "Lithium", "Magnesium", "Hydrogen", "Carbon", "Calcium", "Nickel", "Cobalt", "Phosphorus", "Sulfur", "Oxygen", "Nitrogen", "Sodium"]
+    var firstListData = [String]()
+    var secondListData = [String]()
+    var thirdListData = [String]()
+    var fourthListData = [String]()
+    var fifthListData = [String]()
+    var sixthListData = [String]()
+    var seventhListData = [String]()
+    var eighthListData = [String]()
+    var ninthListData = [String]()
+    var tenthListData = [String]()
     
     
     
@@ -33,7 +33,7 @@ class BoardViewVC: UIViewController {
         
         
         print("load board view")
-        
+        setUpCollectionViewData()
         self.boardViewCollectionView.dataSource = self
         self.boardViewCollectionView.delegate = self
         let cellNib = UINib(nibName: String(describing: ListCell.self), bundle: nil)
@@ -44,7 +44,7 @@ class BoardViewVC: UIViewController {
         self.boardViewCollectionView.addGestureRecognizer(longPressGesture)
         
     }
-    
+
     func longPressGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         
         struct CellBeingMoved {
@@ -59,7 +59,7 @@ class BoardViewVC: UIViewController {
         let longPress = gestureRecognizer as! UILongPressGestureRecognizer
         let state = longPress.state
         let locationInView = longPress.location(in: boardViewCollectionView)
-
+        
         if let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView) {
             print("main cell indexpath \(indexPath)")
             
@@ -73,66 +73,61 @@ class BoardViewVC: UIViewController {
                         let cellCenterX: CGFloat = ((UIScreen.main.bounds.width - 50) * CGFloat(indexPath.row + 1)) + CGFloat(indexPath.row * 10) - ((UIScreen.main.bounds.width - 50) / 2)
                         
                         
-                    
-                        Path.initialIndexPath = indexPath
-                        
-                        cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
-                        self.cellSnapshot = snapshotOfCell(cell)
-                        
-                        let centerPoint = CGPoint(x: cellCenterX, y: locationInCellTableView.y)
-                        
-                        var center = centerPoint
-                        self.cellSnapshot!.center = center
-                        self.cellSnapshot!.alpha = 0.0
-                        boardViewCollectionView.addSubview(self.cellSnapshot!)
-                        
-                        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                        switch state {
+                        case UIGestureRecognizerState.began:
+                            print("began")
                             
-                            self.indexToCollapse = Path.initialIndexPath
                             
-                            center.y = locationInCellTableView.y
-                            center.x = cellCenterX
                             
-                            CellBeingMoved.cellIsAnimating = true
+                            
+                            
+                            Path.initialIndexPath = indexPath
+                            
+                            cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
+                            self.cellSnapshot = snapshotOfCell(cell)
+                            
+                            let centerPoint = CGPoint(x: cellCenterX, y: locationInCellTableView.y)
+                            
+                            var center = centerPoint
                             self.cellSnapshot!.center = center
-                            self.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-                            self.cellSnapshot!.alpha = 0.98
-                            cell.alpha = 0.0
-                        }, completion: { (finished) -> Void in
-                            if finished {
-                                CellBeingMoved.cellIsAnimating = false
+                            self.cellSnapshot!.alpha = 0.0
+                            boardViewCollectionView.addSubview(self.cellSnapshot!)
+                            
+                            UIView.animate(withDuration: 0.25, animations: { () -> Void in
                                 
-                            }
-                        })
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                                self.indexToCollapse = Path.initialIndexPath
+                                
+                                center.y = locationInCellTableView.y
+                                center.x = cellCenterX
+                                
+                                CellBeingMoved.cellIsAnimating = true
+                                self.cellSnapshot!.center = center
+                                self.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                                self.cellSnapshot!.alpha = 0.98
+                                cell.alpha = 0.0
+                            }, completion: { (finished) -> Void in
+                                if finished {
+                                    CellBeingMoved.cellIsAnimating = false
+                                    
+                                }
+                            })
+                            
+                            
+                        case UIGestureRecognizerState.changed:
+                            print("changed")
+                            
+                            
+                            
+                        default:
+                            print("ended")
+                            self.cellSnapshot!.removeFromSuperview()
+                            self.cellSnapshot = nil
+                        }
                     }
                     
                 }
-                
-                
-            }
-            
-            
-            
-            switch state {
-            case UIGestureRecognizerState.began:
-                print("began")
-                
-            case UIGestureRecognizerState.changed:
-                print("changed")
-                
-            default:
-                print("ended")
             }
         }
-        
-        
     }
     
     func snapshotOfCell(_ inputView: UIView) -> UIView {
@@ -149,7 +144,26 @@ class BoardViewVC: UIViewController {
         cellSnapshot.layer.shadowOpacity = 0.4
         return cellSnapshot
     }
+    
+    func setUpCollectionViewData(){
+        firstListData = ["Red", "Blue", "Green", "Brown", "Black", "Purple", "Orange", "Gray", "White", "Yellow", "Teal", "Magenta"]
+        secondListData = ["Korean War", "WWI", "WWII", "Mexican Revolution", "Brooks-Baxter War", "Greek Punic Wars", "First Crusade", "Russian Revolution", "Vietnam War", "Gulf War"]
+        thirdListData = ["Captain Crunch", "Reeses Puff", "Fruit Loops", "Fruity Pebbles", "Cocoa Puffs", "Raisin Bran", "Honey Nut Cheerios", "Apple Jacks", "Cinnamon Toast Crunch"]
+        fourthListData = ["Oakland Raiders", "New England Patriots", "Carolina Panthers", "Green Bay Packers", "San Francisco 49ers", "San Diego Chargers", "Denver Broncos", "Detroit Lions", "Seattle Seahawks", "Minnesota Vikings", "Atlanta Falcons"]
+        fifthListData = ["United States of America", "Canada", "Mexico", "England", "Germany", "Japan", "Korea", "China", "India", "Russia", "Israel", "Colombia", "Norway", "Poland", "Spain"]
+        sixthListData = ["Cat", "Dog", "Owl", "Manatee", "Gorilla", "Snake", "Goat", "Cow", "Chicken", "Pig", "Ostrich", "Alligator", "Elephant", "Bear", "Salmon", "Platypus", "Chameleon"]
+        seventhListData = ["Soronan Desert", "Kalahari Desert", "Gobi Desert", "Mojave Desert", "Great Basin Desert", "Thar Desert", "Great Sandy Desert", "Gibson Desert", "Namib Desert"]
+        eighthListData = ["Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Southern Ocean", "Artic Ocean"]
+        ninthListData = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+        tenthListData = ["Helium", "Argon", "Krypton", "Iron", "Gold", "Mercury", "Uranium", "Lead", "Bromine", "Iodine", "Lithium", "Magnesium", "Hydrogen", "Carbon", "Calcium", "Nickel", "Cobalt", "Phosphorus", "Sulfur", "Oxygen", "Nitrogen", "Sodium"]
 
+    }
+
+    
+    @IBAction func resetCV(_ sender: Any) {
+        setUpCollectionViewData()
+        self.boardViewCollectionView.reloadData()
+    }
 }
 
 extension BoardViewVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -161,7 +175,8 @@ extension BoardViewVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
             return CGSize(width: UIScreen.main.bounds.width - 50, height: UIScreen.main.bounds.height - 33 /*top padding*/- 64 /*Nav bar*/)
         }else{
             if (indexPath == indexToCollapse) {
-                return CGSize(width: UIScreen.main.bounds.width - 50, height: 0)
+                //TO DO: Need to animate closing
+                return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
             }else{
                 return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
             }
@@ -295,5 +310,7 @@ extension BoardViewVC: UICollectionViewDataSource {
 
     
 }
+
+
 
 
