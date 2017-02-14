@@ -117,22 +117,25 @@ class BoardViewVC: UIViewController {
                                 }
                                 
                                 
-                                if (indexOfInitialParentCell != nil) {
-                                    if (indexOfInitialParentCell != indexPath) {
-                                        print("Moved cell to different CV")
-                                        
-                                        //Need to remove the cell
-                                        
-                                        let initialParentCell = boardViewCollectionView.cellForItem(at: indexOfInitialParentCell!) as! ListCell
-                                        initialParentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                if (previousParentIndexPath != indexPath) {
+                                    if (indexOfInitialParentCell != nil) {
+                                        if (indexOfInitialParentCell != indexPath) {
+                                            print("Moved cell to different CV")
                                             
-                                            self.firstListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                            //Need to remove the cell
                                             
-                                            initialParentCell.listCollectionView.deleteItems(at: [self.indexOfChildCellBeingMoved!])
-                                            
-                                        }, completion: { complete -> Void in
-                                            
-                                        })
+                                            let initialParentCell = boardViewCollectionView.cellForItem(at: indexOfInitialParentCell!) as! ListCell
+                                            initialParentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                                
+                                                self.firstListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                
+                                                initialParentCell.listCollectionView.deleteItems(at: [self.indexOfChildCellBeingMoved!])
+                                                
+                                            }, completion: { complete -> Void in
+                                                
+                                            })
+                                            previousParentIndexPath = indexPath
+                                        }
                                     }
                                 }
                                 
