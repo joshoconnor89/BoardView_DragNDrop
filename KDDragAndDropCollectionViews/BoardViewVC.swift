@@ -12,7 +12,8 @@ import UIKit
 class BoardViewVC: UIViewController {
     
     @IBOutlet weak var boardViewCollectionView: UICollectionView!
-    
+    fileprivate var cellSnapshot: UIView?
+    fileprivate var indexToCollapse: IndexPath?
     
     var firstListData = ["Red", "Blue", "Green", "Brown", "Black", "Purple", "Orange", "Gray", "White", "Yellow", "Teal", "Magenta"]
     var secondListData = ["Korean War", "WWI", "WWII", "Mexican Revolution", "Brooks-Baxter War", "Greek Punic Wars", "First Crusade", "Russian Revolution", "Vietnam War", "Gulf War"]
@@ -45,6 +46,16 @@ class BoardViewVC: UIViewController {
     }
     
     func longPressGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
+        
+        struct CellBeingMoved {
+            static var cellSnapshot : UIView? = nil
+            static var cellIsAnimating : Bool = false
+            static var cellNeedToShow : Bool = false
+        }
+        struct Path {
+            static var initialIndexPath : IndexPath? = nil
+        }
+        
         let longPress = gestureRecognizer as! UILongPressGestureRecognizer
         let state = longPress.state
         let locationInView = longPress.location(in: boardViewCollectionView)
@@ -52,21 +63,54 @@ class BoardViewVC: UIViewController {
         if let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView) {
             print("main cell indexpath \(indexPath)")
             
-            if let cellSelected = self.boardViewCollectionView.cellForItem(at: indexPath) as? ListCell {
-                let locationInCellTableView = longPress.location(in: cellSelected)
-                let indexPath = cellSelected.listCollectionView.indexPathForItem(at: locationInCellTableView)
+            if let parentCell = self.boardViewCollectionView.cellForItem(at: indexPath) as? ListCell {
+                let locationInCellTableView = longPress.location(in: parentCell)
+                if let childIndexPath = parentCell.listCollectionView.indexPathForItem(at: locationInCellTableView) {
+                    print("cell in main cell indexpath \(indexPath)")
+                    
+                    if let cell = parentCell.listCollectionView.cellForItem(at: childIndexPath){
+                        
+                        Path.initialIndexPath = indexPath
+                        
+                        cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
+                        self.cellSnapshot = snapshotOfCell(cell)
+                        var center = cell.center
+                        self.cellSnapshot!.center = center
+                        self.cellSnapshot!.alpha = 0.0
+                        boardViewCollectionView.addSubview(self.cellSnapshot!)
+                        
+                        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                            
+                            self.indexToCollapse = Path.initialIndexPath
+                            
+                            center.y = locationInCellTableView.y
+                            
+                            CellBeingMoved.cellIsAnimating = true
+                            self.cellSnapshot!.center = center
+                            self.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                            self.cellSnapshot!.alpha = 0.98
+                            cell.alpha = 0.0
+                        }, completion: { (finished) -> Void in
+                            if finished {
+                                CellBeingMoved.cellIsAnimating = false
+                                
+                            }
+                        })
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                }
                 
-                print("cell in main cell indexpath \(indexPath)")
+                
             }
             
-            struct CellBeingMoved {
-                static var cellSnapshot : UIView? = nil
-                static var cellIsAnimating : Bool = false
-                static var cellNeedToShow : Bool = false
-            }
-            struct Path {
-                static var initialIndexPath : IndexPath? = nil
-            }
+            
             
             switch state {
             case UIGestureRecognizerState.began:
@@ -108,10 +152,16 @@ extension BoardViewVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
         if collectionView == boardViewCollectionView {
             return CGSize(width: UIScreen.main.bounds.width - 50, height: UIScreen.main.bounds.height - 33 /*top padding*/- 64 /*Nav bar*/)
         }else{
-            return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
+            if (indexPath == indexToCollapse) {
+                return CGSize(width: UIScreen.main.bounds.width - 50, height: 0)
+            }else{
+                return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
+            }
+            
         }
         
     }
+    
     
     
 }
