@@ -26,7 +26,8 @@ class BoardViewVC: UIViewController {
     var ninthListData = [String]()
     var tenthListData = [String]()
     
-    
+    var indexOfInitialParentCell: IndexPath? = nil
+    var indexOfCellBeingMoved : IndexPath? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +80,7 @@ class BoardViewVC: UIViewController {
                         case UIGestureRecognizerState.began:
                             //print("began")
 
+                            indexOfInitialParentCell = indexPath
                             Path.initialIndexPath = childIndexPath
 
                             cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
@@ -120,6 +122,8 @@ class BoardViewVC: UIViewController {
                                 
                                 if Path.previousIndexPath == nil {
                                     Path.previousIndexPath = Path.initialIndexPath!
+                                    self.indexOfCellBeingMoved = Path.initialIndexPath!
+                                    
                                 }
                                 
                                 
@@ -130,27 +134,24 @@ class BoardViewVC: UIViewController {
                                     print("PREV INDEX PATH \(Path.previousIndexPath)")
                                     print("childIndexPath INDEX PATH \(childIndexPath)")
                                     
-                                    
-                                    
-                                    
-//                                    let item = firstListData[(previousIndexPath?.row)!]
-//                                    firstListData.remove(at: (previousIndexPath?.row)!)
-//                                    firstListData.insert(item, at: childIndexPath.row)
-                                    
+
                                     parentCell.listCollectionView.performBatchUpdates({ () -> Void in
                                         
+                                        let item = self.firstListData[(Path.previousIndexPath?.row)!]
+                                        self.firstListData.remove(at: (Path.previousIndexPath?.row)!)
+                                        self.firstListData.insert(item, at: childIndexPath.row)
                                         parentCell.listCollectionView.moveItem(at: Path.previousIndexPath!, to: childIndexPath)
                                         
                                     }, completion: { complete -> Void in
                                         
-                                        //parentCell.listCollectionView.reloadData()
+                                        parentCell.listCollectionView.reloadData()
                                         
                                     })
 
                                 }
                                 
                                 Path.previousIndexPath = childIndexPath
-                                
+                                self.indexOfCellBeingMoved = childIndexPath
                                 
                             }
                             
@@ -160,8 +161,14 @@ class BoardViewVC: UIViewController {
                             self.cellSnapshot!.removeFromSuperview()
                             self.cellSnapshot = nil
                             cell.alpha = 1.0
+                            indexOfInitialParentCell = nil
+                            parentCell.listCollectionView.reloadData()
                         }
                     }
+                    
+                }else{
+                    print("FLICKER?")
+   
                     
                 }
             }
@@ -319,8 +326,13 @@ extension BoardViewVC: UICollectionViewDataSource {
                     
                     cell.listItemLabel.text = string
                     
+                    if (indexPath == indexOfCellBeingMoved) && (tag == indexOfInitialParentCell?.row) {
+                        cell.alpha = 0.0
+                    }else{
+                        cell.alpha = 1.0
+                    }
                     
-                    cell.isHidden = false
+                    
                     
                     if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {
                         
