@@ -54,6 +54,7 @@ class BoardViewVC: UIViewController {
         }
         struct Path {
             static var initialIndexPath : IndexPath? = nil
+            static var previousIndexPath : IndexPath? = nil
         }
         
         let longPress = gestureRecognizer as! UILongPressGestureRecognizer
@@ -61,13 +62,14 @@ class BoardViewVC: UIViewController {
         let locationInView = longPress.location(in: boardViewCollectionView)
         
         if let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView) {
-            print("main cell indexpath \(indexPath)")
+            //print("main cell indexpath \(indexPath)")
+           
             
             if let parentCell = self.boardViewCollectionView.cellForItem(at: indexPath) as? ListCell {
                 let locationInCellTableView = longPress.location(in: parentCell)
                 if let childIndexPath = parentCell.listCollectionView.indexPathForItem(at: locationInCellTableView) {
-                    print("cell in main cell indexpath \(indexPath)")
-                    
+                    //print("cell in main cell indexpath \(indexPath)")
+
                     if let cell = parentCell.listCollectionView.cellForItem(at: childIndexPath){
                         
                         let cellCenterX: CGFloat = ((UIScreen.main.bounds.width - 50) * CGFloat(indexPath.row + 1)) + CGFloat(indexPath.row * 10) - ((UIScreen.main.bounds.width - 50) / 2)
@@ -75,20 +77,20 @@ class BoardViewVC: UIViewController {
                         
                         switch state {
                         case UIGestureRecognizerState.began:
-                            print("began")
+                            //print("began")
                             
                             
                             
                             
                             
-                            Path.initialIndexPath = indexPath
-                            
+                            Path.initialIndexPath = childIndexPath
+
                             cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
                             self.cellSnapshot = snapshotOfCell(cell)
                             
                             let centerPoint = CGPoint(x: cellCenterX, y: locationInCellTableView.y)
                             
-                            var center = centerPoint
+                            let center = centerPoint
                             self.cellSnapshot!.center = center
                             self.cellSnapshot!.alpha = 0.0
                             boardViewCollectionView.addSubview(self.cellSnapshot!)
@@ -97,13 +99,10 @@ class BoardViewVC: UIViewController {
                                 
                                 self.indexToCollapse = Path.initialIndexPath
                                 
-                                center.y = locationInCellTableView.y
-                                center.x = cellCenterX
-                                
                                 CellBeingMoved.cellIsAnimating = true
                                 self.cellSnapshot!.center = center
-                                self.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-                                self.cellSnapshot!.alpha = 0.98
+
+                                self.cellSnapshot!.alpha = 1.0
                                 cell.alpha = 0.0
                             }, completion: { (finished) -> Void in
                                 if finished {
@@ -114,8 +113,48 @@ class BoardViewVC: UIViewController {
                             
                             
                         case UIGestureRecognizerState.changed:
-                            print("changed")
-                            
+                            //print("changed")
+                            if self.cellSnapshot != nil {
+                                var center = self.cellSnapshot!.center
+                                center.y = locationInView.y
+                                center.x = locationInView.x
+                                self.cellSnapshot!.center = center
+                                
+                                if Path.previousIndexPath == nil {
+                                    Path.previousIndexPath = Path.initialIndexPath!
+                                }
+                                
+                                
+                                
+                                if (Path.previousIndexPath != childIndexPath){
+
+                                    
+                                    print("PREV INDEX PATH \(Path.previousIndexPath)")
+                                    print("childIndexPath INDEX PATH \(childIndexPath)")
+                                    
+                                    
+                                    
+                                    
+//                                    let item = firstListData[(previousIndexPath?.row)!]
+//                                    firstListData.remove(at: (previousIndexPath?.row)!)
+//                                    firstListData.insert(item, at: childIndexPath.row)
+                                    
+                                    parentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                        
+                                        parentCell.listCollectionView.moveItem(at: Path.previousIndexPath!, to: childIndexPath)
+                                        
+                                    }, completion: { complete -> Void in
+                                        
+                                        //parentCell.listCollectionView.reloadData()
+                                        
+                                    })
+
+                                }
+                                
+                                Path.previousIndexPath = childIndexPath
+                                
+                                
+                            }
                             
                             
                         default:
