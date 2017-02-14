@@ -70,6 +70,10 @@ class BoardViewVC: UIViewController {
                     
                     if let cell = parentCell.listCollectionView.cellForItem(at: childIndexPath){
                         
+                        let cellCenterX: CGFloat = ((UIScreen.main.bounds.width - 50) * CGFloat(indexPath.row + 1)) + CGFloat(indexPath.row * 10) - ((UIScreen.main.bounds.width - 50) / 2)
+                        
+                        
+                    
                         Path.initialIndexPath = indexPath
                         
                         cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
@@ -84,6 +88,7 @@ class BoardViewVC: UIViewController {
                             self.indexToCollapse = Path.initialIndexPath
                             
                             center.y = locationInCellTableView.y
+                            center.x = cellCenterX
                             
                             CellBeingMoved.cellIsAnimating = true
                             self.cellSnapshot!.center = center
