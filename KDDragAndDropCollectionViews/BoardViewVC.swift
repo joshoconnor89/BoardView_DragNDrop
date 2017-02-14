@@ -158,18 +158,20 @@ class BoardViewVC: UIViewController {
                             
                         default:
                             print("ended")
-                            
-                            let item = self.firstListData[(Path.initialIndexPath?.row)!]
-                            self.firstListData.remove(at: (Path.initialIndexPath?.row)!)
-                            self.firstListData.insert(item, at: (Path.previousIndexPath?.row)!)
-                            parentCell.listCollectionView.reloadData()
+                            if (Path.previousIndexPath != nil){
+                                let item = self.firstListData[(Path.initialIndexPath?.row)!]
+                                self.firstListData.remove(at: (Path.initialIndexPath?.row)!)
+                                self.firstListData.insert(item, at: (Path.previousIndexPath?.row)!)
+                                parentCell.listCollectionView.reloadData()
+                            }
+                           
                             
                             self.cellSnapshot!.removeFromSuperview()
                             self.cellSnapshot = nil
                             cell.alpha = 1.0
                             indexOfInitialParentCell = nil
                             Path.previousIndexPath = nil
-                            
+
                            
                         }
                     }
