@@ -136,15 +136,10 @@ class BoardViewVC: UIViewController {
                                     
 
                                     parentCell.listCollectionView.performBatchUpdates({ () -> Void in
-                                        
-//                                        let item = self.firstListData[(Path.previousIndexPath?.row)!]
-//                                        self.firstListData.remove(at: (Path.previousIndexPath?.row)!)
-//                                        self.firstListData.insert(item, at: childIndexPath.row)
+
                                         parentCell.listCollectionView.moveItem(at: Path.previousIndexPath!, to: childIndexPath)
                                         
                                     }, completion: { complete -> Void in
-                                        
-                                        //parentCell.listCollectionView.reloadData()
                                         
                                     })
 
@@ -175,10 +170,6 @@ class BoardViewVC: UIViewController {
                            
                         }
                     }
-                    
-                }else{
-                    print("FLICKER?")
-   
                     
                 }
             }
