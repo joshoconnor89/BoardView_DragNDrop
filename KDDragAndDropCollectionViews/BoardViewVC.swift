@@ -137,14 +137,14 @@ class BoardViewVC: UIViewController {
 
                                     parentCell.listCollectionView.performBatchUpdates({ () -> Void in
                                         
-                                        let item = self.firstListData[(Path.previousIndexPath?.row)!]
-                                        self.firstListData.remove(at: (Path.previousIndexPath?.row)!)
-                                        self.firstListData.insert(item, at: childIndexPath.row)
+//                                        let item = self.firstListData[(Path.previousIndexPath?.row)!]
+//                                        self.firstListData.remove(at: (Path.previousIndexPath?.row)!)
+//                                        self.firstListData.insert(item, at: childIndexPath.row)
                                         parentCell.listCollectionView.moveItem(at: Path.previousIndexPath!, to: childIndexPath)
                                         
                                     }, completion: { complete -> Void in
                                         
-                                        parentCell.listCollectionView.reloadData()
+                                        //parentCell.listCollectionView.reloadData()
                                         
                                     })
 
@@ -158,11 +158,19 @@ class BoardViewVC: UIViewController {
                             
                         default:
                             print("ended")
+                            
+                            let item = self.firstListData[(Path.initialIndexPath?.row)!]
+                            self.firstListData.remove(at: (Path.initialIndexPath?.row)!)
+                            self.firstListData.insert(item, at: (Path.previousIndexPath?.row)!)
+                            parentCell.listCollectionView.reloadData()
+                            
                             self.cellSnapshot!.removeFromSuperview()
                             self.cellSnapshot = nil
                             cell.alpha = 1.0
                             indexOfInitialParentCell = nil
-                            parentCell.listCollectionView.reloadData()
+                            Path.previousIndexPath = nil
+                            
+                           
                         }
                     }
                     
