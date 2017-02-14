@@ -28,11 +28,11 @@ class BoardViewVC: UIViewController {
     
     var initialChildIndexPath : IndexPath? = nil  //difference between this and indexOfChildCellBeingMoved is that this one has yet to move, whereas indexOfChildCellBeingMoved has moved 
     
-    var indexOfChildCellBeingMoved : IndexPath? = nil
-    var indexOfInitialParentCell: IndexPath? = nil
+    var indexOfChildCellBeingMoved : IndexPath? = nil //the indexpath of the cell selected when long press occurred
+    var indexOfInitialParentCell: IndexPath? = nil  // the indexPath of the parent cell where long press occurred
 
-    var previousChildIndexPath: IndexPath? = nil
-    
+    var previousChildIndexPath: IndexPath? = nil  //the last indexPath where the cell was dragged/dropped
+    var previousParentIndexPath: IndexPath? = nil //the last indexPath of the parent cell where the cell was dragged/dropped
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,7 +175,7 @@ class BoardViewVC: UIViewController {
                             cell.alpha = 1.0
                             indexOfInitialParentCell = nil
                             previousChildIndexPath = nil
-
+                            previousParentIndexPath = nil
                            
                         }
                     }
