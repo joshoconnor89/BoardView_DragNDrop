@@ -13,6 +13,7 @@ class BoardViewVC: UIViewController {
     
     @IBOutlet weak var boardViewCollectionView: UICollectionView!
     
+    
     var firstListData = ["Red", "Blue", "Green", "Brown", "Black", "Purple", "Orange", "Gray", "White", "Yellow", "Teal", "Magenta"]
     var secondListData = ["Korean War", "WWI", "WWII", "Mexican Revolution", "Brooks-Baxter War", "Greek Punic Wars", "First Crusade", "Russian Revolution", "Vietnam War", "Gulf War"]
     var thirdListData = ["Captain Crunch", "Reeses Puff", "Fruit Loops", "Fruity Pebbles", "Cocoa Puffs", "Raisin Bran", "Honey Nut Cheerios", "Apple Jacks", "Cinnamon Toast Crunch"]
@@ -38,8 +39,231 @@ class BoardViewVC: UIViewController {
         self.boardViewCollectionView.register(cellNib, forCellWithReuseIdentifier: "listCell")
         self.automaticallyAdjustsScrollViewInsets = false
         
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(BoardViewVC.longPressGestureRecognized(_:)))
+        self.boardViewCollectionView.addGestureRecognizer(longPressGesture)
         
+    }
+    
+    func longPressGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
+        let longPress = gestureRecognizer as! UILongPressGestureRecognizer
+        let state = longPress.state
+        let locationInView = longPress.location(in: boardViewCollectionView)
+
+        let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView)
+        print(indexPath)
         
+        struct CellBeingMoved {
+            static var cellSnapshot : UIView? = nil
+            static var cellIsAnimating : Bool = false
+            static var cellNeedToShow : Bool = false
+        }
+        struct Path {
+            static var initialIndexPath : IndexPath? = nil
+        }
+        
+        switch state {
+        case UIGestureRecognizerState.began:
+            print("began")
+            
+        case UIGestureRecognizerState.changed:
+            print("changed")
+//            if CellBeingMoved.cellSnapshot != nil {
+//                var center = CellBeingMoved.cellSnapshot!.center
+//                center.y = locationInView.y
+//                CellBeingMoved.cellSnapshot!.center = center
+//                
+//                if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
+//                    previousHighlightedCell?.backgroundColor = UIColor.clear
+//                    previousHighlightedFolderCell?.backgroundColor = UIColor.clear
+//                    
+//                    lastInitialIndexPath = Path.initialIndexPath
+//                    
+//                    if let cell = mainTableView.cellForRow(at: indexPath!) as? Cell {
+//                        cell.backgroundColor = UIColor.lightGray
+//                        previousHighlightedCell = cell
+//                        previousHighlightedFolderCell = nil
+//                    }else if let folderCell = mainTableView.cellForRow(at: indexPath!) as? FolderCell {
+//                        folderCell.backgroundColor = UIColor.lightGray
+//                        previousHighlightedFolderCell = folderCell
+//                        previousHighlightedCell = nil
+//                    }
+//                    
+//                    self.mainTableView.reloadRows(at: [Path.initialIndexPath!], with: .automatic)
+//                }else if (indexPath == nil){
+//                    previousHighlightedCell?.backgroundColor = UIColor.clear
+//                    previousHighlightedFolderCell?.backgroundColor = UIColor.clear
+//                }
+//            }
+        default:
+            print("ended")
+//            if Path.initialIndexPath != nil {
+//                finishedMovingItem = true
+//                previousHighlightedCell?.backgroundColor = UIColor.clear
+//                if (indexPath != nil && (indexPath != Path.initialIndexPath)) {
+//                    
+//                    //THREE CONDITIONS:
+//                    //1) DRAG CELL:
+//                    //A) COMBINE WITH OTHER CELL TO CREATE FOLDER
+//                    //B) COMBINE WITH FOLDER, ADD CELL TO FOLDER
+//                    //2) DRAG FOLDER:
+//                    //REORDER FOLDER LOCATION IN TABLEVIEW
+//                    //3) DRAG CELL FROM WITHIN FOLDER OUT (REMOVE MEDIA FROM FOLDER)
+//                    
+//                    //Create a folder by combining two cells
+//                    if (cellBeingMoved != nil && previousHighlightedCell != nil) {
+//                        print("combining two cells into a folder!")
+//                        let confirmFollowingAlertView = FolderDialog(createFolderMode: true,
+//                                                                     frame: CGRect(x: 0, y: 0, width: 290, height: 180)
+//                        )
+//                        confirmFollowingAlertView.layer.cornerRadius = 5.0
+//                        self.view.addSubview(confirmFollowingAlertView)
+//                        confirmFollowingAlertView.center.x = self.mainTableView.center.x
+//                        confirmFollowingAlertView.center.y = self.mainTableView.center.y - 45
+//                        confirmFollowingAlertView.confirmBlock = { confirmed, folderName in
+//                            if confirmed == true && folderName != nil {
+//                                if let folderName = folderName {
+//                                    print("CREATING FOLDER: \(folderName)")
+//                                    print("            cellBeingMoved-> \(self.cellBeingMoved?.teamLabel.text)")
+//                                    print("            previousHighlightedCell-> \(self.previousHighlightedCell?.teamLabel.text)")
+//                                    
+//                                    confirmFollowingAlertView.removeFromSuperview()
+//                                    if (self.foldersList[folderName] == nil) {
+//                                        self.foldersList[folderName] = [self.cellBeingMoved!.teamLabel.text!, self.previousHighlightedCell!.teamLabel.text!]
+//                                        print("Folders list:\(self.foldersList)")
+//                                        
+//                                        
+//                                        let indexPathOfLastHighlightedCell = self.mainTableView.indexPath(for: self.previousHighlightedCell!)
+//                                        if self.expandedIndexPath != nil {
+//                                            if ((((indexPathOfLastHighlightedCell?.row)! < self.expandedIndexPath!) && ((Path.initialIndexPath?.row)! < self.expandedIndexPath!)) || (Path.initialIndexPath?.row)! < self.expandedIndexPath!){
+//                                                self.expandedIndexPath = self.expandedIndexPath! - 1
+//                                            }
+//                                        }
+//                                        
+//                                        if let teamBeingMoved = self.cellBeingMoved?.teamLabel.text, let teamSelected = self.previousHighlightedCell?.teamLabel.text {
+//                                            self.itemsArray.insert("Folder: \(teamBeingMoved), \(teamSelected)", at: self.mainTableView.indexPath(for: self.previousHighlightedCell!)!.row)
+//                                            self.itemsArray.remove(teamBeingMoved)
+//                                            self.itemsArray.remove(teamSelected)
+//                                        }
+//                                        self.mainTableView.reloadData()
+//                                        Path.initialIndexPath = indexPath
+//                                        
+//                                        
+//                                        let cell = self.mainTableView.cellForRow(at: Path.initialIndexPath!) as UITableViewCell!
+//                                        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+//                                            if let cell = cell{
+//                                                CellBeingMoved.cellSnapshot!.center = cell.center
+//                                            }
+//                                            CellBeingMoved.cellSnapshot!.transform = CGAffineTransform.identity
+//                                            CellBeingMoved.cellSnapshot!.alpha = 0.0
+//                                            cell?.alpha = 1.0
+//                                        }, completion: { (finished) -> Void in
+//                                            if finished {
+//                                                Path.initialIndexPath = nil
+//                                                CellBeingMoved.cellSnapshot!.removeFromSuperview()
+//                                                CellBeingMoved.cellSnapshot = nil
+//                                            }
+//                                        })
+//                                    }
+//                                }
+//                            }else if confirmed ==  true && folderName == nil {
+//                                let alertController = UIAlertController(title: "Whoops!", message: "Please input a folder name.", preferredStyle: .alert)
+//                                let okAction = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in }
+//                                alertController.addAction(okAction)
+//                                self.present(alertController, animated: true, completion:nil)
+//                            }
+//                            else{
+//                                confirmFollowingAlertView.removeFromSuperview()
+//                                Path.initialIndexPath = nil
+//                                CellBeingMoved.cellSnapshot!.removeFromSuperview()
+//                                CellBeingMoved.cellSnapshot = nil
+//                                self.mainTableView.reloadData()
+//                            }
+//                        }
+//                    }
+//                        
+//                        //Dragging a cell into a folder cell
+//                    else if (cellBeingMoved != nil && previousHighlightedFolderCell != nil) {
+//                        print("adding cell to folder!")
+//                        //DO YOU WANT TO ADD THIS TEAM TO THE FOLDER ALERT?
+//                        let confirmFollowingAlertView = FolderDialog(createFolderMode: false,
+//                                                                     frame: CGRect(x: 0, y: 0, width: 290, height: 180)
+//                        )
+//                        confirmFollowingAlertView.layer.cornerRadius = 5.0
+//                        self.view.addSubview(confirmFollowingAlertView)
+//                        confirmFollowingAlertView.center.x = self.mainTableView.center.x
+//                        confirmFollowingAlertView.center.y = self.mainTableView.center.y - 45
+//                        confirmFollowingAlertView.confirmBlock = { confirmed, folderName in
+//                            if confirmed == true {
+//                                print("confirm add cell to folder")
+//                                confirmFollowingAlertView.removeFromSuperview()
+//                                print(self.previousHighlightedFolderCell?.contents)
+//                                
+//                                let folderName = self.previousHighlightedFolderCell?.foldersName
+//                                if let folder = self.foldersList[folderName!] {
+//                                    let mutableTeamArray: NSMutableArray = NSMutableArray()
+//                                    for team in folder {
+//                                        mutableTeamArray.add(team)
+//                                    }
+//                                    if let teamBeingRemoved = self.cellBeingMoved?.teamName {
+//                                        mutableTeamArray.add(teamBeingRemoved)
+//                                        
+//                                        var stringArray = [String]()
+//                                        for item in mutableTeamArray {
+//                                            stringArray.append(item as! String)
+//                                        }
+//                                        self.foldersList[folderName!] = stringArray
+//                                        
+//                                        let indexPathOfFolder = self.mainTableView.indexPath(for: self.previousHighlightedFolderCell!)!
+//                                        let previousString: String = (self.itemsArray[indexPathOfFolder.row] as? String)!
+//                                        let updatedString = previousString + "," + " " + teamBeingRemoved
+//                                        self.itemsArray[indexPathOfFolder.row] = updatedString
+//                                        
+//                                        self.itemsArray.remove(teamBeingRemoved)
+//                                        Path.initialIndexPath = nil
+//                                        CellBeingMoved.cellSnapshot!.removeFromSuperview()
+//                                        CellBeingMoved.cellSnapshot = nil
+//                                        self.mainTableView.reloadData()
+//                                        if let currentCount = (self.previousHighlightedFolderCell?.tableView.currentCount) {
+//                                            self.previousHighlightedFolderCell?.tableView.currentCount = currentCount + 1
+//                                        }
+//                                        
+//                                        
+//                                        self.previousHighlightedFolderCell?.tableView.reloadData()
+//                                        self.previousHighlightedFolderCell?.backgroundColor = UIColor.clear
+//                                        
+//                                        
+//                                    }
+//                                    
+//                                }
+//                                
+//                            }else if confirmed == false{
+//                                print("decline add cell to folder")
+//                                confirmFollowingAlertView.removeFromSuperview()
+//                                
+//                                
+//                            }
+//                            
+//                            
+//                            
+//                        }
+//                        
+//                        
+//                    }
+//                        
+//                        //Reordering a folder
+//                    else if (folderCellBeingMoved != nil){
+//                        print("reordering folder location")
+//                    }
+//                    
+//                    
+//                }else{
+//                    Path.initialIndexPath = nil
+//                    CellBeingMoved.cellSnapshot!.removeFromSuperview()
+//                    CellBeingMoved.cellSnapshot = nil
+//                    mainTableView.reloadData()
+//                }
+//            }
+        }
     }
     
 
