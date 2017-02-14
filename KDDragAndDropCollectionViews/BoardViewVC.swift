@@ -13,7 +13,6 @@ class BoardViewVC: UIViewController {
     
     @IBOutlet weak var boardViewCollectionView: UICollectionView!
     fileprivate var cellSnapshot: UIView?
-    fileprivate var indexToCollapse: IndexPath?
     
     var firstListData = [String]()
     var secondListData = [String]()
@@ -26,9 +25,10 @@ class BoardViewVC: UIViewController {
     var ninthListData = [String]()
     var tenthListData = [String]()
     
+    
     var indexOfInitialParentCell: IndexPath? = nil
     var indexOfCellBeingMoved : IndexPath? = nil
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,23 +48,16 @@ class BoardViewVC: UIViewController {
 
     func longPressGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         
-        struct CellBeingMoved {
-            static var cellSnapshot : UIView? = nil
-            static var cellIsAnimating : Bool = false
-            static var cellNeedToShow : Bool = false
-        }
         struct Path {
-            static var initialIndexPath : IndexPath? = nil
-            static var previousIndexPath : IndexPath? = nil
+            static var initialChildIndexPath : IndexPath? = nil
+            static var previousChildIndexPath : IndexPath? = nil
         }
-        
+
         let longPress = gestureRecognizer as! UILongPressGestureRecognizer
         let state = longPress.state
         let locationInView = longPress.location(in: boardViewCollectionView)
-        
         if let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView) {
             //print("main cell indexpath \(indexPath)")
-           
             
             if let parentCell = self.boardViewCollectionView.cellForItem(at: indexPath) as? ListCell {
                 let locationInCellTableView = longPress.location(in: parentCell)
@@ -81,7 +74,7 @@ class BoardViewVC: UIViewController {
                             //print("began")
 
                             indexOfInitialParentCell = indexPath
-                            Path.initialIndexPath = childIndexPath
+                            Path.initialChildIndexPath = childIndexPath
 
                             cell.backgroundColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
                             self.cellSnapshot = snapshotOfCell(cell)
@@ -95,16 +88,13 @@ class BoardViewVC: UIViewController {
                             
                             UIView.animate(withDuration: 0.25, animations: { () -> Void in
                                 
-                                self.indexToCollapse = Path.initialIndexPath
-                                
-                                CellBeingMoved.cellIsAnimating = true
                                 self.cellSnapshot!.center = center
 
                                 self.cellSnapshot!.alpha = 1.0
                                 cell.alpha = 0.0
                             }, completion: { (finished) -> Void in
                                 if finished {
-                                    CellBeingMoved.cellIsAnimating = false
+
                                     
                                 }
                             })
@@ -120,24 +110,43 @@ class BoardViewVC: UIViewController {
                                 center.x = locationInView.x
                                 self.cellSnapshot!.center = center
                                 
-                                if Path.previousIndexPath == nil {
-                                    Path.previousIndexPath = Path.initialIndexPath!
-                                    self.indexOfCellBeingMoved = Path.initialIndexPath!
+                                if Path.previousChildIndexPath == nil {
+                                    Path.previousChildIndexPath = Path.initialChildIndexPath!
+                                    self.indexOfCellBeingMoved = Path.initialChildIndexPath!
                                     
                                 }
                                 
                                 
+                                if (indexOfInitialParentCell != nil) {
+                                    if (indexOfInitialParentCell != indexPath) {
+                                        print("Moved cell to different CV")
+                                        
+                                        //Need to remove the cell
+                                        
+                                        let initialParentCell = boardViewCollectionView.cellForItem(at: indexOfInitialParentCell!) as! ListCell
+                                        initialParentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                            
+                                            self.firstListData.remove(at: (self.indexOfCellBeingMoved?.row)!)
+                                            
+                                            initialParentCell.listCollectionView.deleteItems(at: [self.indexOfCellBeingMoved!])
+                                            
+                                        }, completion: { complete -> Void in
+                                            
+                                        })
+                                    }
+                                }
                                 
-                                if (Path.previousIndexPath != childIndexPath){
+                                
+                                if (Path.previousChildIndexPath != childIndexPath){
 
                                     
-                                    print("PREV INDEX PATH \(Path.previousIndexPath)")
+                                    print("PREV INDEX PATH \(Path.previousChildIndexPath)")
                                     print("childIndexPath INDEX PATH \(childIndexPath)")
                                     
 
                                     parentCell.listCollectionView.performBatchUpdates({ () -> Void in
 
-                                        parentCell.listCollectionView.moveItem(at: Path.previousIndexPath!, to: childIndexPath)
+                                        parentCell.listCollectionView.moveItem(at: Path.previousChildIndexPath!, to: childIndexPath)
                                         
                                     }, completion: { complete -> Void in
                                         
@@ -145,7 +154,7 @@ class BoardViewVC: UIViewController {
 
                                 }
                                 
-                                Path.previousIndexPath = childIndexPath
+                                Path.previousChildIndexPath = childIndexPath
                                 self.indexOfCellBeingMoved = childIndexPath
                                 
                             }
@@ -153,10 +162,10 @@ class BoardViewVC: UIViewController {
                             
                         default:
                             print("ended")
-                            if (Path.previousIndexPath != nil){
-                                let item = self.firstListData[(Path.initialIndexPath?.row)!]
-                                self.firstListData.remove(at: (Path.initialIndexPath?.row)!)
-                                self.firstListData.insert(item, at: (Path.previousIndexPath?.row)!)
+                            if (Path.previousChildIndexPath != nil){
+                                let item = self.firstListData[(Path.initialChildIndexPath?.row)!]
+                                self.firstListData.remove(at: (Path.initialChildIndexPath?.row)!)
+                                self.firstListData.insert(item, at: (Path.previousChildIndexPath?.row)!)
                                 parentCell.listCollectionView.reloadData()
                             }
                            
@@ -165,7 +174,7 @@ class BoardViewVC: UIViewController {
                             self.cellSnapshot = nil
                             cell.alpha = 1.0
                             indexOfInitialParentCell = nil
-                            Path.previousIndexPath = nil
+                            Path.previousChildIndexPath = nil
 
                            
                         }
@@ -220,12 +229,9 @@ extension BoardViewVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLay
         if collectionView == boardViewCollectionView {
             return CGSize(width: UIScreen.main.bounds.width - 50, height: UIScreen.main.bounds.height - 33 /*top padding*/- 64 /*Nav bar*/)
         }else{
-            if (indexPath == indexToCollapse) {
-                //TO DO: Need to animate closing
-                return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
-            }else{
-                return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
-            }
+
+            return CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
+            
             
         }
         
