@@ -49,38 +49,38 @@ class BoardViewVC: UIViewController {
         let state = longPress.state
         let locationInView = longPress.location(in: boardViewCollectionView)
 
-        let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView)
-        
-        print("main cell indexpath \(indexPath)")
-        
-        
-        
-        if let cellSelected = self.boardViewCollectionView.cellForItem(at: indexPath!) as? ListCell {
-            let locationInCellTableView = longPress.location(in: cellSelected)
-            let indexPath = cellSelected.listCollectionView.indexPathForItem(at: locationInView)
+        if let indexPath = self.boardViewCollectionView.indexPathForItem(at: locationInView) {
+            print("main cell indexpath \(indexPath)")
             
-            print("cell in main cell indexpath \(indexPath)")
-        }
-        
-        struct CellBeingMoved {
-            static var cellSnapshot : UIView? = nil
-            static var cellIsAnimating : Bool = false
-            static var cellNeedToShow : Bool = false
-        }
-        struct Path {
-            static var initialIndexPath : IndexPath? = nil
-        }
-        
-        switch state {
-        case UIGestureRecognizerState.began:
-            print("began")
+            if let cellSelected = self.boardViewCollectionView.cellForItem(at: indexPath) as? ListCell {
+                let locationInCellTableView = longPress.location(in: cellSelected)
+                let indexPath = cellSelected.listCollectionView.indexPathForItem(at: locationInCellTableView)
+                
+                print("cell in main cell indexpath \(indexPath)")
+            }
             
-        case UIGestureRecognizerState.changed:
-            print("changed")
-
-        default:
-            print("ended")
+            struct CellBeingMoved {
+                static var cellSnapshot : UIView? = nil
+                static var cellIsAnimating : Bool = false
+                static var cellNeedToShow : Bool = false
+            }
+            struct Path {
+                static var initialIndexPath : IndexPath? = nil
+            }
+            
+            switch state {
+            case UIGestureRecognizerState.began:
+                print("began")
+                
+            case UIGestureRecognizerState.changed:
+                print("changed")
+                
+            default:
+                print("ended")
+            }
         }
+        
+        
     }
     
     func snapshotOfCell(_ inputView: UIView) -> UIView {
