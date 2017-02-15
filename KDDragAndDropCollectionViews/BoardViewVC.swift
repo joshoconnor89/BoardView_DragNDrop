@@ -34,6 +34,9 @@ class BoardViewVC: UIViewController {
     var previousChildIndexPath: IndexPath? = nil  //the last indexPath where the cell was dragged/dropped
     var previousParentIndexPath: IndexPath? = nil //the last indexPath of the parent cell where the cell was dragged/dropped
 
+    
+    var didChangeCV = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,7 +125,7 @@ class BoardViewVC: UIViewController {
                                         if (indexOfInitialParentCell != indexPath) {
                                             
                                             print("Moved cell to different CV")
-                                            
+                                            didChangeCV = true
                                             //Insert the cell into new CV
                                             parentCell.listCollectionView.performBatchUpdates({ () -> Void in
                                                 
@@ -156,25 +159,25 @@ class BoardViewVC: UIViewController {
                                                 //Update datasource
                                                 switch (indexPath.row) {
                                                 case 0:
-                                                    self.firstListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.firstListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 1:
-                                                    self.secondListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.secondListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 2:
-                                                    self.thirdListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.thirdListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 3:
-                                                    self.fourthListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.fourthListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 4:
-                                                    self.fifthListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.fifthListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 5:
-                                                    self.sixthListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.sixthListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 6:
-                                                    self.seventhListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.seventhListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 7:
-                                                    self.eighthListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.eighthListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 8:
-                                                    self.ninthListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.ninthListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 case 9:
-                                                    self.tenthListData.insert(firstItem, at: childIndexPath.row)
+                                                    self.tenthListData.insert(firstItem, at: (self.previousChildIndexPath?.row)!)
                                                 default:
                                                     break
                                                 }
@@ -183,7 +186,7 @@ class BoardViewVC: UIViewController {
                                                 parentCell.listCollectionView.insertItems(at: [self.indexOfChildCellBeingMoved!])
                                                 
                                             }, completion: { complete -> Void in
-                                                
+                                                parentCell.listCollectionView.reloadData()
                                             })
                                             
                                             //Then remove the cell from previous CV
@@ -220,7 +223,7 @@ class BoardViewVC: UIViewController {
                                                 initialParentCell.listCollectionView.deleteItems(at: [self.indexOfChildCellBeingMoved!])
                                                 
                                             }, completion: { complete -> Void in
-                                                
+                                                initialParentCell.listCollectionView.reloadData()
                                             })
                                             previousParentIndexPath = indexPath
                                             
@@ -256,9 +259,9 @@ class BoardViewVC: UIViewController {
                             print("ended")
                             if (previousChildIndexPath != nil){
                                 
-                                if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)){
+                                if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)) && (didChangeCV == false){
                                    
-                                    
+                                    print("ran")
                                     var firstItem = ""
                                     switch (indexPath.row) {
                                     case 0:
@@ -314,10 +317,15 @@ class BoardViewVC: UIViewController {
                             self.cellSnapshot!.removeFromSuperview()
                             self.cellSnapshot = nil
                             cell.alpha = 1.0
+                            initialChildIndexPath = nil
+                            
+                            indexOfChildCellBeingMoved = nil
                             indexOfInitialParentCell = nil
+                            
                             previousChildIndexPath = nil
                             previousParentIndexPath = nil
-                           
+                            didChangeCV = false
+                            
                         }
                     }
                     
@@ -475,24 +483,13 @@ extension BoardViewVC: UICollectionViewDataSource {
                     cell.listItemLabel.text = string
                     
                     if (indexPath == indexOfChildCellBeingMoved) && (tag == indexOfInitialParentCell?.row) {
-                        cell.alpha = 0.0
+                        //cell.alpha = 0.0
                     }else{
-                        cell.alpha = 1.0
+                        //cell.alpha = 1.0
                     }
                     
                     
                     
-                    if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {
-                        
-                        if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
-                            
-                            if draggingPathOfCellBeingDragged.item == indexPath.item {
-                                
-                                cell.isHidden = true
-                                
-                            }
-                        }
-                    }
                     
                 }
                 
