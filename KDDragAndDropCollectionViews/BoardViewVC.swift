@@ -197,25 +197,25 @@ class BoardViewVC: UIViewController {
                                                 //Delete item
                                                 switch ((self.indexOfInitialParentCell?.row)!) {
                                                 case 0:
-                                                    self.firstListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.firstListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 1:
-                                                    self.secondListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.secondListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 2:
-                                                    self.thirdListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.thirdListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 3:
-                                                    self.fourthListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.fourthListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 4:
-                                                    self.fifthListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.fifthListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 5:
-                                                    self.sixthListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.sixthListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 6:
-                                                    self.seventhListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.seventhListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 7:
-                                                    self.eighthListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.eighthListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 8:
-                                                    self.ninthListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.ninthListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 case 9:
-                                                    self.tenthListData.remove(at: (self.indexOfChildCellBeingMoved?.row)!)
+                                                    self.tenthListData.remove(at: (self.initialChildIndexPath?.row)!)
                                                 default:
                                                     break
                                                 }
@@ -483,6 +483,9 @@ extension BoardViewVC: UICollectionViewDataSource {
                     cell.listItemLabel.text = string
                     
                     if (indexPath == indexOfChildCellBeingMoved) && (tag == indexOfInitialParentCell?.row) {
+                        if tag == previousParentIndexPath?.row {
+                            cell.alpha = 0.0
+                        }
                         //cell.alpha = 0.0
                     }else{
                         //cell.alpha = 1.0
