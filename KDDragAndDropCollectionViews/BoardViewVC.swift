@@ -120,10 +120,23 @@ class BoardViewVC: UIViewController {
                                 if (previousParentIndexPath != indexPath) {
                                     if (indexOfInitialParentCell != nil) {
                                         if (indexOfInitialParentCell != indexPath) {
+                                            
                                             print("Moved cell to different CV")
                                             
-                                            //Need to remove the cell
+                                            //Insert the cell into new CV
+                                            parentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                                
+                                                let firstItem = self.firstListData[(self.initialChildIndexPath?.row)!]
+                                                print(firstItem)
+                                                self.secondListData.insert(firstItem, at: childIndexPath.row)
+                                                
+                                                parentCell.listCollectionView.insertItems(at: [self.indexOfChildCellBeingMoved!])
+                                                
+                                            }, completion: { complete -> Void in
+                                                
+                                            })
                                             
+                                            //Then remove the cell from previous CV
                                             let initialParentCell = boardViewCollectionView.cellForItem(at: indexOfInitialParentCell!) as! ListCell
                                             initialParentCell.listCollectionView.performBatchUpdates({ () -> Void in
                                                 
@@ -135,27 +148,28 @@ class BoardViewVC: UIViewController {
                                                 
                                             })
                                             previousParentIndexPath = indexPath
+                                            
+                                            
+                                            previousChildIndexPath = nil //This prevents next conditional from being ran
                                         }
                                     }
                                 }
                                 
-                                
-                                if (previousChildIndexPath != childIndexPath){
-
-                                    
-                                    print("PREV INDEX PATH \(previousChildIndexPath)")
-                                    print("childIndexPath INDEX PATH \(childIndexPath)")
-                                    
-
-                                    parentCell.listCollectionView.performBatchUpdates({ () -> Void in
-
-                                        parentCell.listCollectionView.moveItem(at: self.previousChildIndexPath!, to: childIndexPath)
+                                if (previousChildIndexPath != nil){
+                                    if (previousChildIndexPath != childIndexPath){
                                         
-                                    }, completion: { complete -> Void in
                                         
-                                    })
-
+                                        parentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                            
+                                            parentCell.listCollectionView.moveItem(at: self.previousChildIndexPath!, to: childIndexPath)
+                                            
+                                        }, completion: { complete -> Void in
+                                            
+                                        })
+                                        
+                                    }
                                 }
+                                
                                 
                                 previousChildIndexPath = childIndexPath
                                 self.indexOfChildCellBeingMoved = childIndexPath
