@@ -255,10 +255,59 @@ class BoardViewVC: UIViewController {
                         default:
                             print("ended")
                             if (previousChildIndexPath != nil){
-                                let item = self.firstListData[(initialChildIndexPath?.row)!]
-                                self.firstListData.remove(at: (initialChildIndexPath?.row)!)
-                                self.firstListData.insert(item, at: (previousChildIndexPath?.row)!)
-                                parentCell.listCollectionView.reloadData()
+                                
+                                if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)){
+                                   
+                                    
+                                    var firstItem = ""
+                                    switch (indexPath.row) {
+                                    case 0:
+                                        firstItem = self.firstListData[(self.initialChildIndexPath?.row)!]
+                                        self.firstListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.firstListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 1:
+                                        firstItem = self.secondListData[(self.initialChildIndexPath?.row)!]
+                                        self.secondListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.secondListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 2:
+                                        firstItem = self.thirdListData[(self.initialChildIndexPath?.row)!]
+                                        self.thirdListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.thirdListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 3:
+                                        firstItem = self.fourthListData[(self.initialChildIndexPath?.row)!]
+                                        self.fourthListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.fourthListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 4:
+                                        firstItem = self.fifthListData[(self.initialChildIndexPath?.row)!]
+                                        self.fifthListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.fifthListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 5:
+                                        firstItem = self.sixthListData[(self.initialChildIndexPath?.row)!]
+                                        self.sixthListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.sixthListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 6:
+                                        firstItem = self.seventhListData[(self.initialChildIndexPath?.row)!]
+                                        self.seventhListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.seventhListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 7:
+                                        firstItem = self.eighthListData[(self.initialChildIndexPath?.row)!]
+                                        self.eighthListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.eighthListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 8:
+                                        firstItem = self.ninthListData[(self.initialChildIndexPath?.row)!]
+                                        self.ninthListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.ninthListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    case 9:
+                                        firstItem = self.tenthListData[(self.initialChildIndexPath?.row)!]
+                                        self.tenthListData.remove(at: (initialChildIndexPath?.row)!)
+                                        self.tenthListData.insert(firstItem, at: (previousChildIndexPath?.row)!)
+                                    default:
+                                        break
+                                    }
+
+                                    parentCell.listCollectionView.reloadData()
+                                }
+                                
                             }
                            
                             
