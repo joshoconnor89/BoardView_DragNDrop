@@ -227,7 +227,7 @@ class BoardViewVC: UIViewController {
                                             })
                                             previousParentIndexPath = indexPath
                                             
-                                            
+                                            self.initialChildIndexPath = childIndexPath
                                             previousChildIndexPath = nil //This prevents next conditional from being ran
                                         }
                                     }
@@ -261,10 +261,6 @@ class BoardViewVC: UIViewController {
                                 
                                 if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)) {
                                     
-                                    //Fix bug when selecting and dragging within CV, then moving to another CV
-                                    if (didChangeCV && (self.initialChildIndexPath != self.previousChildIndexPath)) {
-                                        self.initialChildIndexPath = self.previousChildIndexPath
-                                    }
                                     
                                     print("ran")
                                     var firstItem = ""
