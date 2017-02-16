@@ -2,6 +2,9 @@ This is a sample Drag and Drop prototype.  It not near complete (~70% complete) 
 
 The board is set up as one parent collection view, which scrolls horizontally, and within each collection view reusable cell is a child collectionView.  You will be able to drag a cell within its own collectionView, as well as across reusable collectionViews.  Only scroll right is set up.
 
+**VIDEO**
+https://youtu.be/G-NEHDgMfDA
+
 **DISCLAIMER**
 I am well aware that there are a lot of bad practices going on in this project.  Using tags, the verbose switch statements, and setting up the datasource as shown in this project is not recommended.  The sole purpose of this project is to show how drag and drop across cells in reusable CollectionView cells is possible.  It is recommended to use Core Data and updating the DB model that way instead of having arrays so that the changes are permanently stored locally.
 
