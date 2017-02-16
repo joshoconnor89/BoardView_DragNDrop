@@ -12,7 +12,12 @@ import UIKit
 class BoardViewVC: UIViewController {
     
     @IBOutlet weak var boardViewCollectionView: UICollectionView!
+    
+    fileprivate var rightScrollDetectorRect: CGRect?
+    
     fileprivate var cellSnapshot: UIView?
+    fileprivate var isScrolling: Bool = false
+    fileprivate var didResetScroll: Bool = true
     
     var firstListData = [String]()
     var secondListData = [String]()
@@ -40,7 +45,6 @@ class BoardViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         print("load board view")
         setUpCollectionViewData()
         self.boardViewCollectionView.dataSource = self
@@ -51,6 +55,8 @@ class BoardViewVC: UIViewController {
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(BoardViewVC.longPressGestureRecognized(_:)))
         self.boardViewCollectionView.addGestureRecognizer(longPressGesture)
+        
+        self.rightScrollDetectorRect = CGRect(x: UIScreen.main.bounds.width - 70, y: 33 + 64, width: CGFloat(70.0), height: UIScreen.main.bounds.height - 33 - 64)
         
     }
 
@@ -76,6 +82,8 @@ class BoardViewVC: UIViewController {
                         case UIGestureRecognizerState.began:
                             //print("began")
 
+                            
+                            
                             indexOfInitialParentCell = indexPath
                             initialChildIndexPath = childIndexPath
 
@@ -106,6 +114,24 @@ class BoardViewVC: UIViewController {
                         case UIGestureRecognizerState.changed:
                             //print("changed")
                             cell.alpha = 0.0
+                            
+                            
+                            let point = self.view.convert(locationInView, from: self.boardViewCollectionView)
+                            let wantsToScrollRight = rightScrollDetectorRect?.contains(point)
+                            print("WANT TO SCROLL RIGHT \(wantsToScrollRight)")
+                            
+                            if (didResetScroll){
+                                if (wantsToScrollRight! && !isScrolling){
+                                    didResetScroll = false
+                                    isScrolling = true
+                                    boardViewCollectionView.scrollToItem(at: IndexPath(row: indexPath.row + 1, section: 0), at: .centeredHorizontally, animated: true)
+                                }
+                            }else if (!wantsToScrollRight!){
+                                didResetScroll = true
+                            }
+                            
+                            
+                            
                             
                             if self.cellSnapshot != nil {
                                 var center = self.cellSnapshot!.center
@@ -376,6 +402,16 @@ class BoardViewVC: UIViewController {
 
 extension BoardViewVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        isScrolling = false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       
+        boardViewCollectionView.scrollToItem(at: IndexPath(row: 5, section: 0), at: .centeredHorizontally, animated: true)
+        
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
