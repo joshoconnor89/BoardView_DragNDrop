@@ -259,8 +259,12 @@ class BoardViewVC: UIViewController {
                             print("ended")
                             if (previousChildIndexPath != nil){
                                 
-                                if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)) && (didChangeCV == false){
-                                   
+                                if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)) {
+                                    
+                                    if (didChangeCV && (self.initialChildIndexPath != self.previousChildIndexPath)) {
+                                        self.initialChildIndexPath = self.previousChildIndexPath
+                                    }
+                                    
                                     print("ran")
                                     var firstItem = ""
                                     switch (indexPath.row) {
@@ -363,6 +367,9 @@ class BoardViewVC: UIViewController {
 
     }
 
+    @IBAction func reload(_ sender: Any) {
+        self.boardViewCollectionView.reloadData()
+    }
     
     @IBAction func resetCV(_ sender: Any) {
         setUpCollectionViewData()
@@ -488,7 +495,7 @@ extension BoardViewVC: UICollectionViewDataSource {
                         }
                         //cell.alpha = 0.0
                     }else{
-                        //cell.alpha = 1.0
+                        cell.alpha = 1.0
                     }
                     
                     

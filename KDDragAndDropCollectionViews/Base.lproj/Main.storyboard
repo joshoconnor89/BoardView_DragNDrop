@@ -221,6 +221,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Prototype Project" id="VVM-HE-bc8">
+                        <barButtonItem key="leftBarButtonItem" title="Reload" id="wfg-lM-OuS">
+                            <connections>
+                                <action selector="reload:" destination="eDM-yb-m5w" id="aAm-Fn-gQI"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="Bi6-3S-F5i">
                             <connections>
                                 <action selector="resetCV:" destination="eDM-yb-m5w" id="L0B-nO-rVF"/>
