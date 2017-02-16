@@ -261,6 +261,7 @@ class BoardViewVC: UIViewController {
                                 
                                 if ((indexPath == previousParentIndexPath) || (previousParentIndexPath == nil)) {
                                     
+                                    //Fix bug when selecting and dragging within CV, then moving to another CV
                                     if (didChangeCV && (self.initialChildIndexPath != self.previousChildIndexPath)) {
                                         self.initialChildIndexPath = self.previousChildIndexPath
                                     }
