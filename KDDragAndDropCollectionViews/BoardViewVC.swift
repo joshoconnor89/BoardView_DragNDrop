@@ -216,41 +216,42 @@ class BoardViewVC: UIViewController {
                                             })
                                             
                                             //Then remove the cell from previous CV
-                                            let initialParentCell = boardViewCollectionView.cellForItem(at: indexOfInitialParentCell!) as! ListCell
-                                            initialParentCell.listCollectionView.performBatchUpdates({ () -> Void in
-                                                
-                                                
-                                                //Delete item
-                                                switch ((self.indexOfInitialParentCell?.row)!) {
-                                                case 0:
-                                                    self.firstListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 1:
-                                                    self.secondListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 2:
-                                                    self.thirdListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 3:
-                                                    self.fourthListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 4:
-                                                    self.fifthListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 5:
-                                                    self.sixthListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 6:
-                                                    self.seventhListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 7:
-                                                    self.eighthListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 8:
-                                                    self.ninthListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                case 9:
-                                                    self.tenthListData.remove(at: (self.initialChildIndexPath?.row)!)
-                                                default:
-                                                    break
-                                                }
-                                                
-                                                initialParentCell.listCollectionView.deleteItems(at: [self.indexOfChildCellBeingMoved!])
-                                                
-                                            }, completion: { complete -> Void in
-                                                initialParentCell.listCollectionView.reloadData()
-                                            })
+                                            if let initialParentCell = boardViewCollectionView.cellForItem(at: indexOfInitialParentCell!) as? ListCell {
+                                                initialParentCell.listCollectionView.performBatchUpdates({ () -> Void in
+                                                    
+                                                    
+                                                    //Delete item
+                                                    switch ((self.indexOfInitialParentCell?.row)!) {
+                                                    case 0:
+                                                        self.firstListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 1:
+                                                        self.secondListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 2:
+                                                        self.thirdListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 3:
+                                                        self.fourthListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 4:
+                                                        self.fifthListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 5:
+                                                        self.sixthListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 6:
+                                                        self.seventhListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 7:
+                                                        self.eighthListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 8:
+                                                        self.ninthListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    case 9:
+                                                        self.tenthListData.remove(at: (self.initialChildIndexPath?.row)!)
+                                                    default:
+                                                        break
+                                                    }
+                                                    
+                                                    initialParentCell.listCollectionView.deleteItems(at: [self.indexOfChildCellBeingMoved!])
+                                                    
+                                                }, completion: { complete -> Void in
+                                                    initialParentCell.listCollectionView.reloadData()
+                                                })
+                                            }
                                             previousParentIndexPath = indexPath
                                             
                                             self.initialChildIndexPath = childIndexPath
